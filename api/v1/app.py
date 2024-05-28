@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""app.py"""
+"""The app.py"""
 from models import storage
 from api.v1.views import app_views
 from werkzeug.exceptions import HTTPException
@@ -13,10 +13,14 @@ app.register_blueprint(app_views)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 
+
+
 @app.teardown_appcontext
 def teardown_appcontext(error):
     """teardown_appcontext"""
     storage.close()
+
+
 
 
 @app.errorhandler(404)
@@ -24,6 +28,8 @@ def page_404(error):
     """ Return a custom 404 error """
     err_dict = {"error": "Not found"}
     return jsonify(err_dict), 404
+
+
 
 
 if __name__ == "__main__":
